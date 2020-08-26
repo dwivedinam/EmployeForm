@@ -1,0 +1,58 @@
+
+<!-- <form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
+
+  <label>
+    First Name:
+    <input type="text" formControlName="firstName">
+  </label>
+
+  <label>
+    Last Name:
+    <input type="text" formControlName="lastName">
+  </label>
+<button type = "submit" [disabled]= '!profileForm.valid'>Submit</button>
+</form> -->
+<form [formGroup]='profileForm' (ngSubmit)="onRegisterSubmit()">
+  <div class="form-group">
+    <label for="email">id</label>
+    <input type="text" class="form-control" formControlName="id" >
+  </div>
+  <div class="form-group">
+    <label for="lastname">Name:</label>
+    <input type="text" class="form-control" formControlName="name">
+  </div>
+  <div class="form-group">
+    <label for="phonenumber">Mobile No:</label>
+    <input type="number" class="form-control" formControlName="mobileno">
+  </div>
+  <button type="submit" class="btn btn-default" [disabled] ='!profileForm.valid'>Submit</button>
+</form>
+<div>
+  <br>
+<div class="form-group">
+  <input type="text" class="form-control" placeholder="Search Here" [(ngModel)]="term">
+</div>
+<br>
+</div>
+<div>
+<table class="table">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Name</th>
+      <th>Mobile No</th>
+      <th>Edit</th>
+    </tr>
+  </thead>
+  <tbody *ngFor ='let user of employes | filter:term; let i= index;'>
+    <tr>
+      <td>{{user.id}}</td>
+      <td>{{user.name}}</td>
+      <td>{{user.mobileno}}</td>
+      <td> <button (click)="onEdit(user, i)">Edit Profile</button></td>
+      <td> <button (click)="onDelete(user.id)">Delete Profile</button></td>
+    </tr>
+  </tbody>
+</table>
+</div>
+

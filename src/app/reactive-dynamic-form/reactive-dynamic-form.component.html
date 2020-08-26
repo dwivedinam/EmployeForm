@@ -1,0 +1,123 @@
+<form [formGroup]='employeForm'>
+  <div class="container" let i=index>
+    <div class="row">
+      <div class="form-group col-sm-2">
+        <label>Account:</label>
+        <mat-form-field>
+          <mat-select formControlName="account" placeholder="Clients">
+            <mat-option *ngFor="let client of states" [value]="client.name">
+              {{client.name}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row">
+      <div class="form-group">
+        <div class="col-sm-4">
+          <label>Title:</label>
+          <mat-form-field appearance="fill">
+            <mat-select>
+
+              <mat-option *ngFor="let state of title" [value]="state">{{state}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="col-sm-4">
+          <label>Name:</label>
+          <input type="text" class="form-control" formControlName="name" placeholder="Enter Name" id="pwd"><br>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="">
+        <div class="col-sm-8"><br>
+          <div class="form-group">
+            <button class="right-item  addbtn btn btn-primary" (click)="onAddAddress()">ADD</button><br>
+            <label>Address 1:</label>
+            <div formArrayName="Address" *ngFor="let addres of address.controls; let i = index">
+              <div [formGroupName]="i" class="row">
+                <input type="text" class="form-control" formControlName="add1" placeholder="Enter address line 1">
+                <div *ngIf="i !== 0">
+                  <button class="right-item btn btn-primary float-right" (click)="onRemoveAddress(i)">-</button></div>
+                <br>
+                <input type="text" class="form-control" formControlName="add2" placeholder="Enter address line 2 "><br>
+                <div *ngIf="i !== 0 && 1">
+                  <button class="right-item btn btn-primary float-right" (click)="onRemoveAddress(i)">-</button></div>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="form-group">
+            <label>Phone no:</label>
+            <input type="number" class="form-control" formControlName="phoneno" placeholder="Enter phone number"
+              id="pwd">
+          </div>
+          <div class="form-group">
+            <label>primary email:</label>
+            <input type="text" class="form-control" formControlName="pemail" placeholder="Enter primary email" id="pwd">
+          </div>
+          <div>
+            <label>secondary email : </label>
+            <button class="right-item btn btn-primary" (click)="onAddSmail()">+</button>
+            <div formArrayName="Email" *ngFor="let user of smail.controls; let i = index">
+              <div [formGroupName]="i" class="row">
+                <input type="text" class="form-control" formControlName="semail" placeholder="Enter Secondary email"
+                  id="pwd">
+                <div *ngIf="i !== 0"><button class="right-item btn btn-primary" (click)="onRemoveSmail(i)">-</button>
+                </div>
+              </div>
+              <br>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+    <br>
+    <div class="row">
+      <div class="form-group">
+        <label class="radio-inline">
+          <input type="radio" value="female" formControlName="gender" checked>Female
+        </label>
+        <label class="radio-inline">
+          <input type="radio" value="male" formControlName="gender">Male
+        </label>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="form-group">
+        <h2>Professions :</h2>
+        <input id="dropdown1" matInput ej-dropdownlist [dataSource]="data" [fields]="fieldsvalues" [showCheckbox]="true">
+      </div>
+    </div>
+    <button type="submit" class="btn btn-primary" (click)="onSubmit(this.employeForm.value)">Submit</button>
+  </div>
+
+</form>
+<!-- display data table -->
+
+<div>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Address</th>
+        <th>Phone No.</th>
+        <th>primary email</th>
+      </tr>
+    </thead>
+    <tbody *ngFor='let emp of employeData let i = index'>
+      <tr>
+        <td>{{emp.name}}</td>
+        <td>{{emp.Address}}</td>
+        <td>{{emp.phoneno}}</td>
+        <td>{{emp.pemail}}</td>
+        <td> <button (click)="onEdit(emp, i)">Edit Profile</button></td>
+        <td> <button (click)="onDelete(i)">Delete Profile</button></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
